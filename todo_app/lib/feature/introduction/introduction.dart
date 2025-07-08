@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:todo_app/home/homepage.dart';
+import 'package:todo_app/feature/introduction/start_screen.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -15,7 +15,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
   void _onIntroEnd(context) {
     Navigator.of(
       context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+    ).pushReplacement(MaterialPageRoute(builder: (_) => const StartScreen()));
   }
 
   Widget _buildImage(assetName, [double width = 350]) {
@@ -50,22 +50,22 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
         ),
       ),
-      globalFooter: SizedBox(
-        width: double.infinity,
-        height: 60,
-        child: ElevatedButton(
-          child: const Text(
-            'Let\'s go right away!',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          onPressed: () => _onIntroEnd(context),
-        ),
-      ),
+      // globalFooter: SizedBox(
+      //   width: double.infinity,
+      //   height: 60,
+      //   child: ElevatedButton(
+      //     child: const Text(
+      //       'Let\'s go right away!',
+      //       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+      //     ),
+      //     onPressed: () => _onIntroEnd(context),
+      //   ),
+      // ),
       pages: [
         //For First Page -------------------------------------------------
         PageViewModel(
           titleWidget: Text(''),
-          image:Center(
+          image: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,29 +77,28 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                     fontSize: 40.0,
                     color: Colors.white,
                     fontFamily: 'Lato',
-                    fontWeight: FontWeight.w700,                    
+                    fontWeight: FontWeight.w700,
                   ),
-                )
+                ),
               ],
             ),
           ),
           bodyWidget: Text(''),
-          decoration: PageDecoration(pageColor: Colors.black,
-          fullScreen: true),
-          ),
+          decoration: PageDecoration(pageColor: Colors.black, fullScreen: true),
+        ),
 
-  //For Second Page -------------------------------------------------    
+        //For Second Page -------------------------------------------------
         PageViewModel(
           titleWidget: Text(''),
-          image:Center(
-            child:Column(
+          image: Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset('assets/logos/manage.jpg'),
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
                 Image.asset('assets/logos/NAV.png'),
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
                 Text(
                   "Manager your tasks",
                   style: TextStyle(
@@ -109,7 +108,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 32),
+                // SizedBox(height: 32),
                 Text(
                   "You can easily manage all of your daily",
                   style: TextStyle(
@@ -134,21 +133,20 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
           bodyWidget: Text(''),
           decoration: PageDecoration(pageColor: Colors.black, fullScreen: true),
-          ),
+        ),
 
-//For Third Page -------------------------------------------------
-
+        //For Third Page -------------------------------------------------
         PageViewModel(
           titleWidget: Text(''),
-          image:Center(
-            child:Column(
+          image: Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset('assets/logos/daily.png'),
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
                 Image.asset('assets/logos/NAV2.png'),
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
                 Text(
                   "Create daily routine",
                   style: TextStyle(
@@ -159,7 +157,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                   ),
                 ),
 
-                SizedBox(height: 32),
+                // SizedBox(height: 32),
                 Text(
                   "In Uptodo  you can create your",
                   style: TextStyle(
@@ -169,7 +167,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                
+
                 Text(
                   "personalized routine to stay productive",
                   style: TextStyle(
@@ -184,21 +182,20 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
           bodyWidget: Text(''),
           decoration: PageDecoration(pageColor: Colors.black, fullScreen: true),
-          ),
+        ),
 
-
-//For 4th Page -------------------------------------------------
+        //For 4th Page -------------------------------------------------
         PageViewModel(
           titleWidget: Text(''),
-          image:Center(
-            child:Column(
+          image: Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset('assets/logos/organize.png'),
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
                 Image.asset('assets/logos/NAV3.png'),
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
                 Text(
                   "Organize your tasks",
                   style: TextStyle(
@@ -209,7 +206,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                   ),
                 ),
 
-                SizedBox(height: 32),
+                // SizedBox(height: 32),
                 Text(
                   "You can organize your daily tasks by",
                   style: TextStyle(
@@ -219,7 +216,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                
+
                 Text(
                   "adding your tasks into separate categories",
                   style: TextStyle(
@@ -234,8 +231,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
           bodyWidget: Text(''),
           decoration: PageDecoration(pageColor: Colors.black, fullScreen: true),
-          ),
-//-------------------------------------------------------
+        ),
+        //-------------------------------------------------------
       ],
       onDone: () => _onIntroEnd(context),
       onSkip: () => _onIntroEnd(context), // You can override onSkip callback
@@ -246,8 +243,20 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       //rtl: true, // Display as right-to-left
       back: const Icon(Icons.arrow_back),
       skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      // next: const Icon(Icons.arrow_forward),
+      next: const Text(
+        'Next',
+        style: TextStyle(
+           // or any color you like
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      done: const Text(
+        'Get Started',
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       dotsDecorator: const DotsDecorator(

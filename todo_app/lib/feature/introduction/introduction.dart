@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/feature/introduction/start_screen.dart';
 
 class OnBoardingPage extends StatefulWidget {
@@ -12,11 +13,15 @@ class OnBoardingPage extends StatefulWidget {
 class OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const StartScreen()));
+void _onIntroEnd(context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onBoardingDone', true);
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const StartScreen()),
+      (route) => false,
+    );
   }
+  
 
   Widget _buildImage(assetName, [double width = 350]) {
     return Image.asset('assets/$assetName', width: width);

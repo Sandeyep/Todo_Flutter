@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/feature/login/login_screen.dart';
-import 'package:todo_app/home/homepage.dart';
+import 'package:todo_app/home/dashboard.dart';
 
 class LoginController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -22,7 +22,7 @@ class LoginController extends GetxController {
     if (user == null){
       Get.offAll(() => LoginScreen());
     }else{
-      Get.offAll(() => HomePage());
+      Get.offAll(() => DashBoard());
     }
 
   }

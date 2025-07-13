@@ -6,53 +6,68 @@ import 'package:todo_app/home/dashboard.dart';
 class LoginController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   late Rx<User?> firebaseUser;
-  //loding and error handling
+
   RxBool isloading = false.obs;
   RxString errorMessage = ''.obs;
 
   @override
-  void onReady (){
+  void onReady() {
     super.onReady();
-    firebaseUser = Rx<User?> (auth.currentUser);
-    firebaseUser . bindStream(auth.userChanges());
+    firebaseUser = Rx<User?>(auth.currentUser);
+    firebaseUser.bindStream(auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
-
   }
-  void _setInitialScreen(User? user){
-    if (user == null){
+
+  void _setInitialScreen(User? user) {
+    if (user == null) {
       Get.offAll(() => LoginScreen());
-    }else{
+    } else {
       Get.offAll(() => DashBoard());
     }
-
   }
-  //Register User
-  // ignore: non_constant_identifier_names
-  Future <void> register(String email, String Password) async {
-    isloading.value =true;
+
+  Future<void> register(String email, String password) async {
+    isloading.value = true;
     errorMessage.value = '';
-    try{
+    try {
       await auth.createUserWithEmailAndPassword(
-        email: email, 
-        password: Password,
-        );
-        Get.snackbar("Success", "Account Created Successfully");
-  } on FirebaseAuthException catch (e) {
-    errorMessage.value = e.message ?? "Registration Failed";
-    Get.snackbar("Error", errorMessage.value); 
-  } catch (e) {
-    errorMessage.value = "An unexpected error occurred";
-    Get.snackbar("Error", errorMessage.value);
-  } finally {
-    isloading.value = false;
+        email: email,
+        password: password,
+      );
+      Get.snackbar("Success", "Account Created Successfully");
+    } on FirebaseAuthException catch (e) {
+      errorMessage.value = e.message ?? "Registration Failed";
+      Get.snackbar("Error", errorMessage.value);
+    } catch (e) {
+      errorMessage.value = "An unexpected error occurred";
+      Get.snackbar("Error", errorMessage.value);
+    } finally {
+      isloading.value = false;
+    }
+  }
+
+  Future<void> login(String email, String password) async {
+    isloading.value = true;
+    errorMessage.value = '';
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Get.snackbar("Success", "Login Successful");
+    } on FirebaseAuthException catch (e) {
+      errorMessage.value = e.message ?? "Login Failed";
+      Get.snackbar("Error", errorMessage.value);
+    } catch (e) {
+      errorMessage.value = "An unexpected error occurred";
+      Get.snackbar("Error", errorMessage.value);
+    } finally {
+      isloading.value = false;
+    }
+  }
+
+  void logout() async {
+    await auth.signOut();
+    Get.snackbar("Logged Out", "You have been logged out successfully");
   }
 }
-
-//logout user
-void logout() async {
-  await auth.signOut();
-  Get.snackbar("Logged Out", "You have been Logged out successfully");
-}
-
-  Future<void> login(String trim, String trim2) async {}
-    }

@@ -69,10 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Password is required';
+                      return 'Email is required';
+                    } else if (!GetUtils.isEmail(value.trim())) {
+                      return 'Enter a valid email';
                     }
                     return null;
                   },
+
                   keyboardType: TextInputType.visiblePassword,
                 ),
                 SizedBox(height: 25.h),
@@ -133,17 +136,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 40.h),
                 GestureDetector(
-                  onTap:
-                      authController.isloading.value
-                          ? null
-                          : () async {
-                            if (_formKey.currentState!.validate()) {
-                              await authController.login(
-                                emailController.text.trim(),
-                                passwordController.text.trim(),
-                              );
-                            }
-                          },
+                  onTap: authController.isloading.value
+                      ? null
+                      : () async {
+                          if (_formKey.currentState!.validate()) {
+                            await authController.login(
+                              emailController.text.trim(),
+                              passwordController.text.trim(),
+                            );
+                          }
+                        },
                   child: Container(
                     padding: EdgeInsets.all(12),
                     width: MediaQuery.of(context).size.width,
@@ -153,10 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Center(
                       child: Obx(
-                        () =>
-                            authController.isloading.value
-                                ? CircularProgressIndicator(color: Colors.white)
-                                : Text("Login"),
+                        () => authController.isloading.value
+                            ? CircularProgressIndicator(color: Colors.white)
+                            : Text("Login"),
                       ),
                     ),
                   ),

@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Homepage extends StatefulWidget {
+  const Homepage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Index'),
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            // handle tap
-          },
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SvgPicture.asset(
-              'assets/nav/mk.svg',
-              width: 24.w,
-              height: 24.h,
-              colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            ),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            'assets/nav/mk.svg',
+            width: 24.w,
+            height: 24.h,
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
           ),
         ),
         actions: [
@@ -44,32 +39,123 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
           children: [
-            Image.asset('assets/logos/index.png'),
-            const SizedBox(height: 20),
-            const Text(
-              "What do you want to do today?",
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontFamily: 'Lato',
-                fontWeight: FontWeight.w400,
+            // 🔍 Search Bar
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[800],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: const TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Search for your task...',
+                  hintStyle: TextStyle(color: Colors.white54),
+                  border: InputBorder.none,
+                  icon: Icon(Icons.search, color: Colors.white),
+                ),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
 
-            const Text(
-              "Tap + to add your tasks",
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontFamily: 'Lato',
-                fontWeight: FontWeight.w400,
+            // Today filter
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[700],
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text('Today ▼'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Tasks
+            _buildTaskCard('Do Math Homework', 'Today At 16:45', 'University', Colors.blue, 1),
+            _buildTaskCard('Tack out dogs', 'Today At 18:20', 'Home', Colors.red, 2),
+            _buildTaskCard('Business meeting with CEO', 'Today At 08:15', 'Work', Colors.orange, 3),
+
+            const SizedBox(height: 16),
+
+            // Completed filter
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[700],
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text('Completed ▼'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Completed Task
+            _buildTaskCard('Buy Grocery', 'Today At 16:45', '', Colors.grey, 0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTaskCard(
+      String title, String time, String tag, Color tagColor, int files) {
+    return Card(
+      color: Colors.grey[800],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            const Icon(Icons.radio_button_unchecked, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: const TextStyle(color: Colors.white, fontSize: 16)),
+                  const SizedBox(height: 4),
+                  Text(time,
+                      style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                ],
               ),
             ),
+            if (tag.isNotEmpty)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: tagColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  tag,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            const SizedBox(width: 8),
+            if (files > 0)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.grey[700],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  '📄 $files',
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
           ],
         ),
       ),

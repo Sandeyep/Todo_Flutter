@@ -38,7 +38,9 @@ dependencies:
   get: ^4.7.2
   shared_preferences: ^2.5.3
   flutter_svg: ^2.2.0
-  search_bar: ^1.0.1
+  easy_date_timeline: ^2.0.9
+  file_picker: ^6.1.1
+  dio: ^5.8.0+1
 
 
 

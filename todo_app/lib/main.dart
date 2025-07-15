@@ -17,7 +17,7 @@ void main() async {
 
   // ✅ Check onboarding status from SharedPreferences
   final prefs = await SharedPreferences.getInstance();
-  final isFirstTime = prefs.getBool('onBoardingDone') ?? false;
+  final isFirstTime = prefs.getBool('onBoardingDone') ?? true;
 
   runApp(MainApp(showOnBoarding: !isFirstTime));
 }

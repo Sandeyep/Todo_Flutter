@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'dart:typed_data';
 import 'category_model.dart';
 
@@ -27,14 +27,14 @@ class _CreateCategoryScreenState extends State<CreateCategoryScreen> {
   ];
 
   Future<void> _selectIconFromDevice() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      withData: true,
+    final XFile? file = await openFile(
+      acceptedTypeGroups: [XTypeGroup(label: 'images', extensions: ['jpg', 'png', 'jpeg', 'gif'])],
     );
 
-    if (result != null && result.files.single.bytes != null) {
+    if (file != null) {
+      final bytes = await file.readAsBytes();
       setState(() {
-        selectedImageBytes = result.files.single.bytes;
+        selectedImageBytes = bytes;
       });
     }
   }
